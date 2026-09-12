@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Subtitle Loader",
+  "version": "2.0.0",
+  "description": "SRT va VTT subtitle fayllarini YouTube videolariga ulaydi. Server kerak emas.",
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Subtitle Loader"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "lib.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

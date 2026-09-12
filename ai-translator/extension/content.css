@@ -1,0 +1,101 @@
+#yt-uz-overlay {
+  position: fixed;
+
+  left: 50%;
+  bottom: 11%;
+
+  transform: translateX(-50%);
+
+  z-index: 2147483647;
+
+  max-width: 80%;
+
+  padding: 8px 16px;
+
+  border-radius: 6px;
+
+  background: rgba(0, 0, 0, 0.82);
+
+  color: #ffffff;
+
+  font-family: "YouTube Noto", Roboto, Arial, sans-serif;
+
+  font-size: 22px;
+
+  font-weight: 500;
+
+  line-height: 1.45;
+
+  text-align: center;
+
+  text-shadow: 1px 1px 2px #000000;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition: opacity 0.08s ease;
+}
+
+#yt-uz-overlay.visible {
+  opacity: 1;
+}
+
+#yt-uz-overlay .yt-uz-line {
+  margin: 0;
+}
+
+#yt-uz-overlay .yt-uz-line-original {
+  margin-top: 4px;
+
+  color: #c7c7c7;
+
+  font-size: 0.72em;
+
+  font-weight: 400;
+}
+
+#yt-uz-overlay .yt-uz-line-original:empty {
+  display: none;
+}
+
+#yt-uz-status {
+  position: fixed;
+
+  top: 70px;
+  right: 20px;
+
+  z-index: 2147483647;
+
+  padding: 10px 14px;
+
+  border-radius: 8px;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  color: #ffffff;
+
+  font-family: Roboto, Arial, sans-serif;
+
+  font-size: 14px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity 0.2s;
+}
+
+#yt-uz-status.visible {
+  opacity: 1;
+}
+
+@media (max-width: 700px) {
+  #yt-uz-overlay {
+    bottom: 14%;
+
+    max-width: 90%;
+
+    font-size: 18px;
+  }
+}

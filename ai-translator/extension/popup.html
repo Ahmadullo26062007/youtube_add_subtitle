@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+
+  <title>YouTube Uzbek</title>
+
+  <style>
+    body {
+      width: 290px;
+      margin: 0;
+      padding: 16px;
+
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #111;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 16px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 12px;
+    }
+
+    .row label {
+      color: #333;
+    }
+
+    input[type="range"] {
+      width: 130px;
+    }
+
+    button {
+      width: 100%;
+
+      padding: 10px;
+
+      margin-top: 6px;
+
+      border: 0;
+      border-radius: 6px;
+
+      font-size: 14px;
+
+      cursor: pointer;
+    }
+
+    #toggle {
+      background: #111;
+      color: #fff;
+    }
+
+    #toggle.off {
+      background: #ddd;
+      color: #333;
+    }
+
+    #reload {
+      background: #eee;
+    }
+
+    #status {
+      margin-top: 12px;
+      padding-top: 10px;
+
+      border-top: 1px solid #eee;
+
+      font-size: 12px;
+      line-height: 1.6;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>🇺🇿 YouTube Uzbek</h2>
+
+  <div class="row">
+    <label for="showOriginal">Original matn ham</label>
+    <input type="checkbox" id="showOriginal">
+  </div>
+
+  <div class="row">
+    <label for="fontSize">Shrift</label>
+    <input type="range" id="fontSize" min="14" max="40" step="1">
+  </div>
+
+  <div class="row">
+    <label for="bottom">Balandlik</label>
+    <input type="range" id="bottom" min="2" max="40" step="1">
+  </div>
+
+  <button id="toggle">Yoqilgan</button>
+
+  <button id="reload">🔄 Qayta tarjima qilish</button>
+
+  <div id="status">Yuklanmoqda...</div>
+
+  <script src="popup.js"></script>
+
+</body>
+</html>

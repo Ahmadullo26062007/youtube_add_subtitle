@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Subtitle Loader</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      width: 330px;
+      margin: 0;
+      padding: 16px;
+
+      font-family: Roboto, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #111;
+      background: #fff;
+    }
+
+    h2 {
+      margin: 0 0 2px;
+      font-size: 17px;
+    }
+
+    .hint {
+      margin-bottom: 14px;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .block {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .block:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    .title {
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      font-size: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 9px;
+      margin-top: 8px;
+      border: 0;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button.primary { background: #111; color: #fff; }
+    button.ghost   { background: #eee; color: #222; }
+    button:disabled { opacity: 0.45; cursor: default; }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .row label {
+      flex: 1;
+      font-size: 13px;
+      color: #333;
+    }
+
+    input[type="range"] { width: 120px; }
+
+    .value {
+      width: 42px;
+      text-align: right;
+      font-size: 12px;
+      color: #777;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #current {
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: #f4f4f4;
+      font-size: 12px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    #current b { color: #111; }
+
+    .muted { color: #888; }
+  </style>
+</head>
+
+<body>
+
+  <h2>🎬 Subtitle Loader</h2>
+  <div class="hint">
+    .srt / .vtt faylni oching yoki to'g'ridan-to'g'ri video ustiga tashlang.
+  </div>
+
+  <div class="block">
+    <div class="title">Shu video</div>
+
+    <div id="current" class="muted">Yuklanmoqda...</div>
+
+    <input id="file" type="file"
+           accept=".srt,.vtt,text/vtt,application/x-subrip"
+           style="margin-top:10px">
+
+    <button id="applyLast" class="ghost" hidden></button>
+    <button id="remove" class="ghost" hidden>🗑 Subtitle'ni o'chirish</button>
+  </div>
+
+  <div class="block">
+    <div class="title">Ko'rinish</div>
+
+    <div class="row">
+      <label for="enabled">Subtitle yoqilgan</label>
+      <input id="enabled" type="checkbox">
+    </div>
+
+    <div class="row">
+      <label for="fontSize">Hajmi</label>
+      <input id="fontSize" type="range" min="2" max="9" step="0.2">
+      <span id="fontSizeValue" class="value"></span>
+    </div>
+
+    <div class="row">
+      <label for="bgOpacity">Fon</label>
+      <input id="bgOpacity" type="range" min="0" max="100" step="5">
+      <span id="bgOpacityValue" class="value"></span>
+    </div>
+
+    <div class="row">
+      <label for="bottom">Pastdan</label>
+      <input id="bottom" type="range" min="2" max="35" step="1">
+      <span id="bottomValue" class="value"></span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Sinxronlash</div>
+
+    <div class="row">
+      <label for="offset">Vaqt siljishi</label>
+      <input id="offset" type="range" min="-15" max="15" step="0.1">
+      <span id="offsetValue" class="value"></span>
+    </div>
+
+    <div class="hint" style="margin:6px 0 0">
+      Video ustida <b>[</b> va <b>]</b> tugmalari bilan ham 0.5s ga siljitasiz.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Saqlangan</div>
+
+    <div id="saved" class="hint" style="margin:0"></div>
+
+    <button id="clearAll" class="ghost">Hammasini tozalash</button>
+  </div>
+
+  <script src="lib.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* Overlay #movie_player ichiga qo'yiladi — shuning uchun fullscreen'da ham
+   ko'rinadi va player o'lchamiga moslashadi. */
+
+#ysl-box {
+  position: absolute;
+
+  left: 50%;
+  bottom: 8%;
+
+  transform: translateX(-50%);
+
+  z-index: 40;
+
+  width: max-content;
+  max-width: 88%;
+
+  text-align: center;
+
+  pointer-events: none;
+
+  display: none;
+}
+
+#ysl-box.visible {
+  display: block;
+}
+
+#ysl-text {
+  display: inline-block;
+
+  padding: 0.15em 0.5em;
+
+  border-radius: 4px;
+
+  background: rgba(0, 0, 0, 0.8);
+
+  color: #ffffff;
+
+  font-family: "YouTube Noto", Roboto, Arial, Helvetica, sans-serif;
+
+  font-size: inherit;
+
+  font-weight: 500;
+
+  line-height: 1.32;
+
+  white-space: pre-wrap;
+
+  text-shadow:
+    0 0 3px #000,
+    1px 1px 2px #000,
+    -1px -1px 2px #000;
+}
+
+#ysl-text i {
+  font-style: italic;
+}
+
+#ysl-text b {
+  font-weight: 700;
+}
+
+#ysl-toast {
+  position: absolute;
+
+  top: 16px;
+  left: 16px;
+
+  z-index: 60;
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  color: #ffffff;
+
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 13px;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition: opacity 0.2s;
+}
+
+#ysl-toast.visible {
+  opacity: 1;
+}
+
+#ysl-drop {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 70;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  border: 3px dashed rgba(255, 255, 255, 0.8);
+
+  color: #ffffff;
+
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+
+  pointer-events: none;
+}
+
+#ysl-drop.visible {
+  display: flex;
+}
