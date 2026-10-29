@@ -280,6 +280,51 @@
   }
 
   // --------------------------------------------------
+  // URL -> video ID
+  // --------------------------------------------------
+
+  // YouTube ID'lari eski saqlanganlar bilan mos bo'lishi uchun prefikssiz,
+  // Dailymotion ID'lari "dm:" prefiksi bilan saqlanadi.
+  const DM_ID = /^x[a-z0-9]+$/i;
+
+  function videoIdFromUrl(href) {
+    let url;
+
+    try {
+      url = new URL(href);
+    } catch (e) {
+      return null;
+    }
+
+    const host = url.hostname;
+
+    if (/(^|\.)youtube\.com$/.test(host)) {
+      if (url.pathname === "/watch") return url.searchParams.get("v");
+
+      // youtube.com/shorts/<id>
+      const shorts = url.pathname.match(/^\/shorts\/([^/]+)/);
+
+      if (shorts) return shorts[1];
+
+      return null;
+    }
+
+    if (/(^|\.)dailymotion\.com$/.test(host)) {
+      // dailymotion.com/video/<id>, dailymotion.com/embed/video/<id>
+      const path = url.pathname.match(/\/video\/(x[a-z0-9]+)/i);
+
+      if (path) return `dm:${path[1]}`;
+
+      // geo.dailymotion.com/player/<playerId>.html?video=<id>
+      const param = url.searchParams.get("video");
+
+      if (param && DM_ID.test(param)) return `dm:${param}`;
+    }
+
+    return null;
+  }
+
+  // --------------------------------------------------
   // Storage
   // --------------------------------------------------
 
@@ -393,6 +438,8 @@
   self.SubLib = {
     DEFAULT_SETTINGS,
     MAX_SAVED,
+    DM_ID,
+    videoIdFromUrl,
     readFile,
     parse,
     parseTime,

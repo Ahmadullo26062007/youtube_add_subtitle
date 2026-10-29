@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Ruxsatlar -->
+        <TextView
+            style="@style/Section"
+            android:text="@string/section_permissions" />
+
+        <TextView
+            android:id="@+id/overlayStatus"
+            style="@style/Status" />
+
+        <Button
+            android:id="@+id/overlayButton"
+            style="@style/Btn"
+            android:text="@string/grant_overlay" />
+
+        <TextView
+            android:id="@+id/listenerStatus"
+            style="@style/Status" />
+
+        <Button
+            android:id="@+id/listenerButton"
+            style="@style/Btn"
+            android:text="@string/grant_listener" />
+
+        <TextView
+            android:id="@+id/restrictedHint"
+            style="@style/Hint"
+            android:text="@string/restricted_hint" />
+
+        <Button
+            android:id="@+id/appInfoButton"
+            style="@style/Btn"
+            android:text="@string/app_info" />
+
+        <Button
+            android:id="@+id/notifButton"
+            style="@style/Btn"
+            android:text="@string/grant_notifications" />
+
+        <!-- Holat -->
+        <TextView
+            style="@style/Section"
+            android:text="@string/section_status" />
+
+        <TextView
+            android:id="@+id/youtubeTitle"
+            style="@style/Status" />
+
+        <Button
+            android:id="@+id/loadButton"
+            style="@style/Btn"
+            android:text="@string/load_subtitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startButton"
+                style="@style/Btn"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/hideButton"
+                style="@style/Btn"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- Sozlamalar -->
+        <TextView
+            style="@style/Section"
+            android:text="@string/section_settings" />
+
+        <TextView
+            android:id="@+id/fontLabel"
+            style="@style/Status" />
+
+        <SeekBar
+            android:id="@+id/fontSeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/bgLabel"
+            style="@style/Status" />
+
+        <SeekBar
+            android:id="@+id/bgSeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+
+        <TextView
+            style="@style/Hint"
+            android:text="@string/place_hint" />
+
+        <Button
+            android:id="@+id/resetPosButton"
+            style="@style/Btn"
+            android:text="@string/reset_position" />
+
+        <!-- Saqlanganlar -->
+        <TextView
+            style="@style/Section"
+            android:text="@string/section_saved" />
+
+        <LinearLayout
+            android:id="@+id/savedList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            style="@style/Hint"
+            android:text="@string/tips" />
+    </LinearLayout>
+</ScrollView>

@@ -1,4 +1,4 @@
-/* Overlay #movie_player ichiga qo'yiladi — shuning uchun fullscreen'da ham
+/* Overlay player (YouTube: #movie_player, Dailymotion: .player) ichiga qo'yiladi — shuning uchun fullscreen'da ham
    ko'rinadi va player o'lchamiga moslashadi. */
 
 #ysl-box {

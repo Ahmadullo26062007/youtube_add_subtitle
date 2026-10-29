@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Subtitle Overlay</string>
+    <string name="channel_name">Subtitle overlay</string>
+
+    <string name="section_permissions">Ruxsatlar</string>
+    <string name="section_status">YouTube</string>
+    <string name="section_settings">Ko\'rinish</string>
+    <string name="section_saved">Saqlangan subtitle\'lar</string>
+
+    <string name="perm_ok">✅ %1$s</string>
+    <string name="perm_missing">❌ %1$s</string>
+    <string name="perm_overlay">Boshqa ilovalar ustida ko\'rsatish</string>
+    <string name="perm_listener">Bildirishnomalarga kirish (YouTube vaqtini o\'qish uchun)</string>
+    <string name="grant_overlay">Overlay ruxsatini berish</string>
+    <string name="grant_listener">Bildirishnomalarga kirishni yoqish</string>
+    <string name="grant_notifications">Bildirishnoma ruxsati</string>
+    <string name="app_info">Ilova sozlamalari</string>
+    <string name="restricted_hint">Agar \"Bildirishnomalarga kirish\" kulrang bo\'lsa (Android 13+): Ilova sozlamalari → yuqoridagi ⋮ → \"Cheklangan sozlamalarga ruxsat berish\", keyin qayta urinib ko\'ring. Xiaomi\'da \"Pop-up oynalar\" ruxsatini ham yoqing, batareya tejashni esa \"Cheklovsiz\" qiling.</string>
+
+    <string name="youtube_now">YouTube\'da hozir: %1$s</string>
+    <string name="youtube_none">YouTube\'da video ochilmagan</string>
+    <string name="load_subtitle">Subtitle yuklash (.srt / .vtt)</string>
+    <string name="start">▶ Ishga tushirish</string>
+    <string name="stop">■ To\'xtatish</string>
+    <string name="hide">Yashirish</string>
+    <string name="show">Ko\'rsatish</string>
+    <string name="hidden">yashirilgan</string>
+
+    <string name="font_size">Shrift: %1$.1f%%</string>
+    <string name="bg_opacity">Fon: %1$d%%</string>
+    <string name="place_hint">Joyini o\'zgartirish: YouTube ochiq turganda bildirishnomadagi \"Joylashtirish\" tugmasini bosing va matnni barmoq bilan suring. Portrait va fullscreen uchun joy alohida saqlanadi.</string>
+    <string name="reset_position">Joylashuvni tiklash</string>
+
+    <string name="saved_empty">Hali subtitle yuklanmagan</string>
+    <string name="bound_to">→ %1$s</string>
+    <string name="bound_next">→ keyingi ochilgan video</string>
+    <string name="saved_meta">%1$d ta qator · %2$s · siljish %3$s</string>
+    <string name="bind_here">Shu videoga</string>
+    <string name="delete">O\'chirish</string>
+
+    <string name="bind_title">Qaysi videoga ulansin?</string>
+    <string name="bind_message">Video nomi YouTube\'dagidek bo\'lishi kerak. Bo\'sh qoldirsangiz — keyingi ochilgan videoga ulanadi.</string>
+    <string name="save">Saqlash</string>
+    <string name="cancel">Bekor qilish</string>
+
+    <string name="loaded">%1$d ta qator yuklandi</string>
+    <string name="parse_error">Subtitle o\'qilmadi: fayl SRT yoki VTT emas</string>
+    <string name="read_error">Faylni o\'qib bo\'lmadi</string>
+    <string name="too_large">Fayl juda katta</string>
+    <string name="need_permissions">Avval ruxsatlarni bering</string>
+
+    <string name="tips">Qanday ishlaydi: YouTube\'da videoni oching → bu yerda subtitle yuklang → YouTube\'ga qayting. Subtitle video nomiga bog\'lanadi va shu video qayta ochilganda avtomatik chiqadi. Vaqt mos kelmasa — bildirishnomadagi −0.5s / +0.5s tugmalari.</string>
+
+    <!-- Overlay / notification -->
+    <string name="no_subtitle">Bu video uchun subtitle yo\'q</string>
+    <string name="offset_value">Siljish: %1$s</string>
+    <string name="placing_hint">↕ Surib joylashtiring, keyin \"Tayyor\"</string>
+    <string name="place">Joylashtirish</string>
+    <string name="place_done">Tayyor</string>
+    <string name="status_no_access">Bildirishnomalarga kirish ruxsati yo\'q</string>
+    <string name="status_open_app">Ilovani ochib ruxsat bering</string>
+    <string name="status_waiting">YouTube\'da video kutilmoqda…</string>
+    <string name="status_no_sub">Subtitle yo\'q — ilovadan yuklang</string>
+</resources>

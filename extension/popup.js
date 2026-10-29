@@ -24,7 +24,7 @@
   let lastSub = null;
 
   // --------------------------------------------------
-  // Aktiv YouTube tab
+  // Aktiv video tab
   // --------------------------------------------------
 
   async function activeVideoId() {
@@ -35,21 +35,7 @@
 
     if (!tab?.url) return null;
 
-    try {
-      const url = new URL(tab.url);
-
-      if (!/(^|\.)youtube\.com$/.test(url.hostname)) return null;
-
-      if (url.pathname === "/watch") return url.searchParams.get("v");
-
-      const shorts = url.pathname.match(/^\/shorts\/([^/]+)/);
-
-      if (shorts) return shorts[1];
-    } catch (e) {
-      // ignore
-    }
-
-    return null;
+    return L.videoIdFromUrl(tab.url);
   }
 
   // --------------------------------------------------
@@ -61,7 +47,7 @@
 
     if (!videoId) {
       currentBox.className = "muted";
-      currentBox.textContent = "YouTube video sahifasi ochilmagan.";
+      currentBox.textContent = "YouTube yoki Dailymotion video sahifasi ochilmagan.";
 
       fileInput.disabled = true;
       applyLastBtn.hidden = true;

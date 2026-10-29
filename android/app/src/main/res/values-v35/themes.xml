@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 15: framework ActionBar bilan edge-to-edge majburiyligidan chiqamiz -->
+    <style name="AppTheme" parent="Base.AppTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources>

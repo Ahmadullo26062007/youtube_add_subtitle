@@ -1,18 +1,30 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Subtitle Loader",
-  "version": "2.0.0",
-  "description": "SRT va VTT subtitle fayllarini YouTube videolariga ulaydi. Server kerak emas.",
+  "name": "YouTube & Dailymotion Subtitle Loader",
+  "version": "2.1.0",
+  "description": "SRT va VTT subtitle fayllarini YouTube va Dailymotion videolariga ulaydi. Server kerak emas.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "subtitle-loader@ahmadullo",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
   "permissions": [
     "storage",
     "unlimitedStorage"
   ],
   "host_permissions": [
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "https://*.dailymotion.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "YouTube Subtitle Loader"
+    "default_title": "YouTube & Dailymotion Subtitle Loader"
   },
   "content_scripts": [
     {
@@ -28,6 +40,20 @@
       ],
       "run_at": "document_idle",
       "all_frames": false
+    },
+    {
+      "matches": [
+        "https://*.dailymotion.com/*"
+      ],
+      "js": [
+        "lib.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
     }
   ]
 }

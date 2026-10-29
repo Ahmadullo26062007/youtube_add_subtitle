@@ -18,38 +18,71 @@
   let lastCueKey = "";
   let lastLayoutKey = "";
 
+  const IS_DM = /(^|\.)dailymotion\.com$/.test(location.hostname);
+  const IS_TOP = window === window.top;
+
+  // Dailymotion player iframe (geo.dailymotion.com) ichida ishlaydi. Sayt SPA
+  // bo'lgani uchun iframe URL'i har doim ham yangilanmaydi — shuning uchun
+  // asosiy sahifa joriy video ID'sini postMessage orqali yuboradi.
+  let parentVideoId = null;
+  let lastMouseMove = 0;
+
   // --------------------------------------------------
   // DOM yordamchilari
   // --------------------------------------------------
 
-  function getPlayer() {
-    return document.querySelector("#movie_player");
-  }
-
   function getVideo() {
+    if (IS_DM) {
+      return (
+        document.querySelector("video#video") ||
+        document.querySelector("video")
+      );
+    }
+
     return (
       document.querySelector("#movie_player video.html5-main-video") ||
       document.querySelector("#movie_player video")
     );
   }
 
-  function getVideoId() {
-    try {
-      const url = new URL(location.href);
+  function getPlayer() {
+    if (!IS_DM) return document.querySelector("#movie_player");
 
-      if (url.pathname === "/watch") {
-        return url.searchParams.get("v");
-      }
+    const video = getVideo();
 
-      // youtube.com/shorts/<id>
-      const shorts = url.pathname.match(/^\/shorts\/([^/]+)/);
+    if (!video) return null;
 
-      if (shorts) return shorts[1];
-    } catch (e) {
-      // ignore
+    const player = video.closest(".player") || video.parentElement;
+
+    // Fullscreen player ichidagi chuqurroq elementga qo'yilgan bo'lsa,
+    // overlay o'sha element ichida bo'lishi kerak, aks holda ko'rinmaydi.
+    const fs = document.fullscreenElement;
+
+    if (fs && fs !== video && player.contains(fs) && fs.contains(video)) {
+      return fs;
     }
 
-    return null;
+    return player;
+  }
+
+  function isAdShowing(player) {
+    return !IS_DM && player.classList.contains("ad-showing");
+  }
+
+  function areControlsVisible(player) {
+    if (!IS_DM) return !player.classList.contains("ytp-autohide");
+
+    // Dailymotion controls holatini class orqali bildirmaydi:
+    // sichqoncha qimirlaganda yoki pauzada ko'rinadi deb hisoblaymiz.
+    const video = getVideo();
+
+    return (video && video.paused) || Date.now() - lastMouseMove < 3000;
+  }
+
+  function getVideoId() {
+    if (IS_DM && parentVideoId) return parentVideoId;
+
+    return L.videoIdFromUrl(location.href);
   }
 
   // --------------------------------------------------
@@ -80,6 +113,11 @@
       dropEl = document.createElement("div");
       dropEl.id = "ysl-drop";
       dropEl.textContent = ".srt / .vtt faylni shu yerga tashlang";
+    }
+
+    // Overlay absolute joylashadi — player "static" bo'lsa, siljib ketadi
+    if (IS_DM && getComputedStyle(player).position === "static") {
+      player.style.position = "relative";
     }
 
     // Player elementi SPA navigatsiyada almashishi mumkin
@@ -113,8 +151,7 @@
     const height = player.clientHeight || 360;
 
     // Controls ko'rinib turganda subtitle'ni biroz tepaga suramiz
-    const controlsVisible =
-      !player.classList.contains("ytp-autohide");
+    const controlsVisible = areControlsVisible(player);
 
     const key = [
       height,
@@ -186,7 +223,7 @@
     }
 
     // Reklama vaqtida subtitle chiqmasin
-    if (player.classList.contains("ad-showing")) {
+    if (isAdShowing(player)) {
       hideBox();
       return;
     }
@@ -235,7 +272,7 @@
 
   async function loadFile(file) {
     if (!videoId) {
-      toast("Avval YouTube videosini oching.");
+      toast("Avval video sahifasini oching.");
       return;
     }
 
@@ -381,7 +418,66 @@
     lastCueKey = "";
     lastLayoutKey = "";
 
+    sendVideoIdToFrames();
+
     await applyStored();
+  }
+
+  // --------------------------------------------------
+  // Dailymotion: sahifa <-> player iframe
+  // --------------------------------------------------
+
+  function isDmOrigin(origin) {
+    try {
+      return /(^|\.)dailymotion\.com$/.test(new URL(origin).hostname);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function sendVideoIdToFrames() {
+    if (!IS_DM || !IS_TOP) return;
+
+    for (const frame of document.querySelectorAll("iframe")) {
+      if (!isDmOrigin(frame.src)) continue;
+
+      frame.contentWindow?.postMessage({ ysl: "videoId", id: videoId }, "*");
+    }
+  }
+
+  function watchFrames() {
+    if (!IS_DM) return;
+
+    window.addEventListener("mousemove", () => {
+      lastMouseMove = Date.now();
+    }, true);
+
+    if (IS_TOP) {
+      // Iframe tayyor bo'lganda o'zi so'raydi
+      window.addEventListener("message", (event) => {
+        if (event.data?.ysl !== "ask" || !isDmOrigin(event.origin)) return;
+
+        event.source?.postMessage({ ysl: "videoId", id: videoId }, "*");
+      });
+
+      return;
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== window.parent) return;
+      if (event.data?.ysl !== "videoId" || !isDmOrigin(event.origin)) return;
+
+      const id = event.data.id;
+
+      if (id !== null && !(typeof id === "string" && /^dm:/.test(id) &&
+        L.DM_ID.test(id.slice(3)))) return;
+
+      parentVideoId = id;
+
+      onNavigate();
+    });
+
+    window.parent.postMessage({ ysl: "ask" }, "*");
   }
 
   function watchNavigation() {
@@ -465,6 +561,8 @@
 
     await applyStored();
 
+    watchFrames();
+    sendVideoIdToFrames();
     watchNavigation();
     watchDragDrop();
     watchKeys();
